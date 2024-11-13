@@ -1,1 +1,1 @@
-# Prediction-Mental-Heal-Menggunakan-model-DecisionTree
+# Prediction-Mental-Health-Menggunakan-model-DecisionTree
