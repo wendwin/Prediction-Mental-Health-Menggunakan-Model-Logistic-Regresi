@@ -1,1 +1,1 @@
-# Prediction-Mental-Health-Menggunakan-model-DecisionTree
+# Prediction-Mental-Health-Menggunakan-model-Logistic Regresi
