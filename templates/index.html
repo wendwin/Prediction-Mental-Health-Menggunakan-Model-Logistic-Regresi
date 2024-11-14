@@ -33,7 +33,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Screening</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blogs</a>
+                        <a class="nav-link" href="#">Information</a>
                     </li>
                 </ul>
             </div>
@@ -45,8 +45,11 @@
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-md-6">
                     <div class="mb-5">
-                        <h1 class="mb-4">Mensafe Track Your Stress, <br>Nurture our Peace.</h1>
-                        <h3>Sadari Level Stresmu, Sayangi Kesehatan Mentalmu</h3>
+                        <h1 class="mb-4"><span class="satu">Mensafe</span> <span class="dua">Track Your</span>
+                            <span class="tiga">Stress</span>, <br> <span class="empat">Nurture our</span> <span
+                                class="lima">Peace</span>
+                        </h1>
+                        <h4>Sadari Level Stresmu, Sayangi Kesehatan Mentalmu</h4>
                     </div>
                     <button type="button" class="btn">Gratis, Cek Sekarang Yuk!!</button>
                 </div>
@@ -63,179 +66,93 @@
         </path>
     </svg>
 
-    <!-- <div class="container mt-5">
-                    <h2 class="text-center mb-4">Formulir Penilaian Kesehatan Mental</h2>
-                    <form action="{{ url_for('index') }}" method="POST">
-                              <div class="row">
-                                        <div class="form-group col-md-6">
-                                                  <label for="anxiety_level">Seberapa sering Anda merasa cemas?</label>
-                                                  <input type="number" id="anxiety_level" name="anxiety_level"
-                                                            class="form-control" placeholder="Skala 0-21" min="0"
-                                                            max="21" required>
-                                        </div>
+    <div class="info">
+        <div class="container">
+            <div class="row mb-3  mb-md-0">
+                <h1 class="mx-3"> <span class="satu">Kenapa</span> <span class="dua">Men</span><span
+                        class="tiga">safe?</span></h1>
+            </div>
+            <div class="row  d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="list d-flex align-items-center mb-4">
+                        <img class="me-5" src="{{ url_for('static', filename='img/tttick.png') }}" alt="">
+                        <div class="">
+                            <p class="mb-0 ">Gratis dan Terjangkau</p>
+                        </div>
+                    </div>
+                    <div class="list d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/tttick.png') }}" alt="">
+                        <p class="mb-0">Ramah Disabilitas</p>
+                    </div>
+                    <div class="list d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/tttick.png') }}" alt="">
+                        <p class="mb-0">Pemantauan Stres yang Mudah dan Terukur</p>
+                    </div>
+                    <div class="list d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/tttick.png') }}" alt="">
+                        <p class="mb-0">Akses Kapan Saja, Di Mana Saja</p>
+                    </div>
+                    <div class="list d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/tttick.png') }}" alt="">
+                        <p class="mb-0">Penggunaan yang Mudah dan Intuitif</p>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-md-start">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" width="80%">
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="self_esteem">Bagaimana Anda menilai kepercayaan diri
-                                                            Anda?</label>
-                                                  <input type="number" id="self_esteem" name="self_esteem"
-                                                            class="form-control" placeholder="Skala 0-30" min="0"
-                                                            max="30" required>
-                                        </div>
+    <div class="info-des mt-5">
+        <div class="container">
+            <div class="row mb-3 mb-md-0 d-flex justify-content-center">
+                <h2 class="mx-3 mb-5">Memahami <Span>Level Stress</Span> Dari Tenang Hingga Tanda Awal Stres</h2>
+            </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="mental_health_history">Apakah Anda memiliki riwayat
-                                                            masalah kesehatan mental? (YA/TIDAK)</label>
-                                                  <input type="text" id="mental_health_history"
-                                                            name="mental_health_history" class="form-control" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="depression">Seberapa sering Anda merasa tertekan atau
-                                                            depresi?</label>
-                                                  <input type="number" id="depression" name="depression"
-                                                            class="form-control" placeholder="Skala 0-27" min="0"
-                                                            max="27" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="headache">Seberapa sering Anda mengalami sakit
-                                                            kepala?</label>
-                                                  <input type="number" id="headache" name="headache"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="blood_pressure">Bagaimana tekanan darah Anda
-                                                            biasanya?</label>
-                                                  <input type="number" id="blood_pressure" name="blood_pressure"
-                                                            class="form-control" placeholder="Skala 0-3" min="0" max="3"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="sleep_quality">Bagaimana kualitas tidur Anda secara
-                                                            keseluruhan?</label>
-                                                  <input type="number" id="sleep_quality" name="sleep_quality"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="breathing_problem">Apakah Anda pernah mengalami masalah
-                                                            pernapasan?</label>
-                                                  <input type="number" id="breathing_problem" name="breathing_problem"
-                                                            class="form-control" placeholder="Skala 0-5">
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="noise_level">Seberapa berisik lingkungan tempat tinggal
-                                                            Anda?</label>
-                                                  <input type="number" id="noise_level" name="noise_level"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="living_conditions">Bagaimana kondisi tempat tinggal
-                                                            Anda?</label>
-                                                  <input type="number" id="living_conditions" name="living_conditions"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="safety">Apakah Anda merasa aman di lingkungan
-                                                            Anda?</label>
-                                                  <input type="number" id="safety" name="safety" class="form-control"
-                                                            placeholder="Skala 0-5" min=" 0" max="5" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="basic_needs">Apakah Anda memiliki akses yang cukup untuk
-                                                            kebutuhan dasar?</label>
-                                                  <input type="number" id="basic_needs" name="basic_needs"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="academic_performance">Bagaimana Anda menilai performa
-                                                            akademik Anda?</label>
-                                                  <input type="number" id="academic_performance"
-                                                            name="academic_performance" class="form-control"
-                                                            placeholder="Skala 0-5" min="0" max="5" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="study_load">Bagaimana beban studi atau pekerjaan Anda saat
-                                                            ini?</label>
-                                                  <input type="number" id="study_load" name="study_load"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="teacher_student_relationship">Bagaimana hubungan Anda
-                                                            dengan pengajar atau atasan?</label>
-                                                  <input type="number" id="teacher_student_relationship"
-                                                            name="teacher_student_relationship" class="form-control"
-                                                            placeholder="Skala 0-5" min="0" max="5" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="future_career_concerns">Apakah Anda merasa khawatir
-                                                            tentang karir masa depan Anda?</label>
-                                                  <input type="number" id="future_career_concerns"
-                                                            name="future_career_concerns" class="form-control"
-                                                            placeholder="Skala 0-5" min="0" max="5" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="social_support">Apakah Anda memiliki dukungan sosial yang
-                                                            memadai?</label>
-                                                  <input type="number" id="social_support" name="social_support"
-                                                            class="form-control" placeholder="Skala 0-3" min="0" max="3"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="peer_pressure">Apakah Anda sering merasa mendapat tekanan
-                                                            dari teman sebaya?</label>
-                                                  <input type="number" id="peer_pressure" name="peer_pressure"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="extracurricular_activities">Seberapa aktif Anda dalam
-                                                            kegiatan ekstrakurikuler?</label>
-                                                  <input type="number" id="extracurricular_activities"
-                                                            name="extracurricular_activities" class="form-control"
-                                                            placeholder="Skala 0-5" min="0" max="5" required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="bullying">Apakah Anda pernah mengalami
-                                                            perundungan?</label>
-                                                  <input type="number" id="bullying" name="bullying"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                                  <label for="stress_level">Seberapa sering Anda merasa stres?</label>
-                                                  <input type="number" id="stress_level" name="stress_level"
-                                                            class="form-control" placeholder="Skala 0-2" min="0" max="2"
-                                                            required>
-                                        </div>
-                              </div>
-
-                              <div class="text-center">
-                                        <button type="submit" class="btn btn-primary mt-3">Kirim</button>
-                              </div>
-                    </form>
-          </div> -->
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-md-6 mb-5">
+                    <div class="level d-flex align-items-center">
+                        <div class="img-level">
+                            <img src="{{ url_for('static', filename='img/level0.png') }}" alt="">
+                        </div>
+                        <div class="level-des">
+                            <h6 class="text-uppercase">level 0</h6>
+                            <p>Ini tuh level chill banget, kayak kamu lagi santai nggak ada beban, semua terkendali, dan
+                                pikiran rasanya damai banget!</p>
+                        </div>
+                    </div>
+                    <img class="img-line" src="{{ url_for('static', filename='img/line.png') }}" alt="">
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="level d-flex align-items-center">
+                        <div class="img-level">
+                            <img src="{{ url_for('static', filename='img/level1.png') }}" alt="">
+                        </div>
+                        <div class="level-des">
+                            <h6 class="text-uppercase">level 1</h6>
+                            <p>Nah, di level ini tuh mulai ada sedikit tekanan. Nggak terlalu berat sih, masih bisa
+                                di-handle sambil jalan, tapi udah mulai terasa ada yang ngganjel dikit</p>
+                        </div>
+                    </div>
+                    <img class="img-line" src="{{ url_for('static', filename='img/line.png') }}" alt="">
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="level d-flex align-items-center">
+                        <div class="img-level">
+                            <img src="{{ url_for('static', filename='img/level2.png') }}" alt="">
+                        </div>
+                        <div class="level-des">
+                            <h6 class="text-uppercase">level 2</h6>
+                            <p>Kalau udah sampai sini, kamu mulai ngerasa agak tegang dan kepikiran terus. Belum parah,
+                                tapi udah mulai butuh perhatian biar nggak makin berat.</p>
+                        </div>
+                    </div>
+                    <img class="img-line" src="{{ url_for('static', filename='img/line.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Link Bootstrap JS dan dependensinya -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
