@@ -46,56 +46,150 @@
 
 
 
- <div class="container mt-5">
-                    <h2 class="text-center mb-4">Formulir Penilaian Kesehatan Mental</h2>
-                    <form action="{{ url_for('index') }}" method="POST">
-                              <div class="row">
-                                        <div class="form-group col-md-6">
-                                                  <label for="anxiety_level">Seberapa sering Anda merasa cemas?</label>
-                                                  <input type="number" id="anxiety_level" name="anxiety_level"
-                                                            class="form-control" placeholder="Skala 0-21" min="0"
-                                                            max="21" required>
-                                        </div>
+<div class="container mt-5">
+          <h2 class="text-center mb-4">Formulir Penilaian Kesehatan Mental</h2>
+          <form action="{{ url_for('index') }}" method="POST">
+                    <div class="row">
+                              <!-- Dropdown for anxiety_level -->
+                              <div class="form-group col-md-6">
+                                        <label for="anxiety_level">Seberapa sering Anda merasa cemas?</label>
+                                        <select id="anxiety_level" name="anxiety_level" class="form-control" required>
+                                                  <option value="1">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="1">2</option>
+                                                  <option value="1">3</option>
+                                                  <option value="1">4</option>
+                                                  <option value="1">5</option>
+                                                  <option value="1">6</option>
+                                                  <option value="1">7</option>
+                                                  <option value="1">8</option>
+                                                  <option value="1">9</option>
+                                                  <option value="1">10</option>
+                                                  <option value="1">11</option>
+                                                  <option value="1">12</option>
+                                                  <option value="1">13</option>
+                                                  <option value="1">14</option>
+                                                  <option value="1">15</option>
+                                                  <option value="1">16</option>
+                                                  <option value="1">17</option>
+                                                  <option value="1">18</option>
+                                                  <option value="1">19</option>
+                                                  <option value="1">20</option>
+                                                  <option value="21">21</option>
+                                        </select>
+                              </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="self_esteem">Bagaimana Anda menilai kepercayaan diri
-                                                            Anda?</label>
-                                                  <input type="number" id="self_esteem" name="self_esteem"
-                                                            class="form-control" placeholder="Skala 0-30" min="0"
-                                                            max="30" required>
-                                        </div>
+                              <!-- Dropdown for self_esteem -->
+                              <div class="form-group col-md-6">
+                                        <label for="self_esteem">Bagaimana Anda menilai kepercayaan diri Anda?</label>
+                                        <select id="self_esteem" name="self_esteem" class="form-control" required>
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                                  <option value="11">11</option>
+                                                  <option value="12">12</option>
+                                                  <option value="13">13</option>
+                                                  <option value="14">14</option>
+                                                  <option value="15">15</option>
+                                                  <option value="16">16</option>
+                                                  <option value="17">17</option>
+                                                  <option value="18">18</option>
+                                                  <option value="19">19</option>
+                                                  <option value="20">20</option>
+                                                  <option value="21">21</option>
+                                                  <option value="22">22</option>
+                                                  <option value="23">23</option>
+                                                  <option value="24">24</option>
+                                                  <option value="25">25</option>
+                                                  <option value="26">26</option>
+                                                  <option value="27">27</option>
+                                                  <option value="28">28</option>
+                                                  <option value="29">29</option>
+                                                  <option value="30">30</option>
+                                        </select>
+                              </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="mental_health_history">Apakah Anda memiliki riwayat
-                                                            masalah kesehatan mental? (YA/TIDAK)</label>
-                                                  <input type="text" id="mental_health_history"
-                                                            name="mental_health_history" class="form-control" required>
+                              <!-- Radio button for mental_health_history -->
+                              <div class="form-group col-md-6">
+                                        <label for="mental_health_history">Apakah Anda memiliki riwayat masalah
+                                                  kesehatan mental?</label>
+                                        <div>
+                                                  <input type="radio" id="mental_health_yes"
+                                                            name="mental_health_history" value="Ya" required>
+                                                  <label for="mental_health_yes">Ya</label>
+                                                  <input type="radio" id="mental_health_no" name="mental_health_history"
+                                                            value="Tidak" required>
+                                                  <label for="mental_health_no">Tidak</label>
                                         </div>
+                              </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="depression">Seberapa sering Anda merasa tertekan atau
-                                                            depresi?</label>
-                                                  <input type="number" id="depression" name="depression"
-                                                            class="form-control" placeholder="Skala 0-27" min="0"
-                                                            max="27" required>
-                                        </div>
+                              <!-- Dropdown for depression -->
+                              <div class="form-group col-md-6">
+                                        <label for="depression">Seberapa sering Anda merasa tertekan atau
+                                                  depresi?</label>
+                                        <select id="depression" name="depression" class="form-control" required>
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                                  <option value="11">11</option>
+                                                  <option value="12">12</option>
+                                                  <option value="13">13</option>
+                                                  <option value="14">14</option>
+                                                  <option value="15">15</option>
+                                                  <option value="16">16</option>
+                                                  <option value="17">17</option>
+                                                  <option value="18">18</option>
+                                                  <option value="19">19</option>
+                                                  <option value="20">20</option>
+                                                  <option value="21">21</option>
+                                                  <option value="22">22</option>
+                                                  <option value="23">23</option>
+                                                  <option value="24">24</option>
+                                                  <option value="25">25</option>
+                                                  <option value="26">26</option>
+                                                  <option value="27">27</option>
+                                        </select>
+                              </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="headache">Seberapa sering Anda mengalami sakit
-                                                            kepala?</label>
-                                                  <input type="number" id="headache" name="headache"
-                                                            class="form-control" placeholder="Skala 0-5" min="0" max="5"
-                                                            required>
-                                        </div>
+                              <!-- Dropdown for headache -->
+                              <div class="form-group col-md-6">
+                                        <label for="headache">Seberapa sering Anda mengalami sakit kepala?</label>
+                                        <select id="headache" name="headache" class="form-control" required>
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                        </select>
+                              </div>
 
-                                        <div class="form-group col-md-6">
-                                                  <label for="blood_pressure">Bagaimana tekanan darah Anda
-                                                            biasanya?</label>
-                                                  <input type="number" id="blood_pressure" name="blood_pressure"
-                                                            class="form-control" placeholder="Skala 0-3" min="0" max="3"
-                                                            required>
-                                        </div>
-
+                              <!-- Dropdown for blood_pressure -->
+                              <div class="form-group col-md-6">
+                                        <label for="blood_pressure">Bagaimana tekanan darah Anda biasanya?</label>
+                                        <select id="blood_pressure" name="blood_pressure" class="form-control" required>
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                        </select>
+                              </div>
                                         <div class="form-group col-md-6">
                                                   <label for="sleep_quality">Bagaimana kualitas tidur Anda secara
                                                             keseluruhan?</label>
