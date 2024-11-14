@@ -76,7 +76,7 @@
 }
 
 .info-des h2 {
-    font-size: 28px;
+    font-size: 30px;
 }
 
 .info-des h2 span {
@@ -94,8 +94,70 @@
 }
 
 
+.stats h2 {
+    color: #0A6835;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.stats img {
+    width: 50%;
+}
+
+.stats .stats-des {
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    padding: 20px;
+    height: 50%;
+}
+
+.stats .stats-des h5 {
+    color: #0A6835;
+}
+
+.konsultasi h3 {
+    color: #0A6835;
+}
+
+.konsultasi h3 span {
+    color: #0A6835;
+    font-weight: 700;
+}
 
 
+.konsultasi .konsul-des {
+    text-align: center;
+    max-width: 600px;
+    /* background-color: #1aca9b; */
+}
+
+.konsultasi {
+    margin: 150px 0;
+}
+
+.konsultasi button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #007958;
+    border: 1px solid #007958;
+    color: #fff;
+    font-weight: bold;
+}
+
+.konsultasi button:hover {
+    background-color: #1aca9b;
+    border: 1px solid #1aca9b;
+}
+
+.konsultasi .info {
+    max-width: 500px;
+    margin-top: 200px;
+}
+
+
+footer {
+    background-color: #007958;
+}
 
 
 

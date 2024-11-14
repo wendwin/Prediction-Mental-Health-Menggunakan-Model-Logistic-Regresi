@@ -16,9 +16,9 @@
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
             <div class="nav-img">
-                <a class="navbar-brand" href="#">
+                <!-- <a class="navbar-brand" href="#">
                     <img src="{{ url_for('static', filename='img/tdsn.png') }}" alt="" width="60">
-                </a>
+                </a> -->
                 <a class="navbar-brand" href="#">
                     <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" width="60">
                 </a>
@@ -51,7 +51,7 @@
                         </h1>
                         <h4>Sadari Level Stresmu, Sayangi Kesehatan Mentalmu</h4>
                     </div>
-                    <button type="button" class="btn" onclick="window.location.href='/screening'">Gratis, Cek Sekarang Yuk!!</button>
+                    <button type="button" class="btn">Gratis, Cek Sekarang Yuk!!</button>
                 </div>
                 <div class="col-md-6 text-center text-md-start">
                     <img src="{{ url_for('static', filename='img/hero.png') }}" alt="" width="80%">
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="info-des mt-5">
+    <div class="info-des my-5">
         <div class="container">
             <div class="row mb-3 mb-md-0 d-flex justify-content-center">
                 <h2 class="mx-3 mb-5">Memahami <Span>Level Stress</Span> Dari Tenang Hingga Tanda Awal Stres</h2>
@@ -153,6 +153,78 @@
             </div>
         </div>
     </div>
+
+    <div class="stats my-5">
+        <div class="container">
+            <div class="row mb-3 mb-md-0 d-flex justify-content-center">
+                <h2 class="mx-3 p-3">Melihat Dinamika Stres Responden</h2>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-md-4 mb-5">
+                    <div class="">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/stats1.png') }}" alt="" width="100%">
+                        </div>
+                        <div class="stats-des text-center">
+                            <h5>Zona Tenang</h5>
+                            <h1>90,8%</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/stats2.png') }}" alt="" width="100%">
+                        </div>
+                        <div class="stats-des text-center">
+                            <h5>Zona Stres Ringan </h5>
+                            <h1>7,9%</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="">
+                        <div class="text-center">
+                            <img src="{{ url_for('static', filename='img/stats3.png') }}" alt="" width="100%">
+                        </div>
+                        <div class="stats-des text-center">
+                            <h5>Zona Tanda Awal </h5>
+                            <h1>1,3%</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="konsultasi">
+        <div class="container">
+            <div class="row d-flex justify-content-center text-center mb-4 mx-3"> <!-- text-center untuk center teks -->
+                <h3 class="text-center text-capitalize mb-3"><span>gratis! </span> konsultasi kesehatan mental hanya di
+                    mensafe</h3>
+                <div class="konsul-des">
+                    <p>Yuk, coba konsultasi gratis di Mensafe! Temukan cara mengelola stres dengan lebih baik, langsung
+                        bersama ahli. Mulai langkah kecil untuk kesehatan mentalmu sekarang!</p>
+                </div>
+                <p>Ketika anda mengakses website MENSAFE untuk beberapa menit,
+                    ini sama dengan anda mengadakan 1 pertemuan dengan psikolog.</p>
+            </div>
+            <div class="row d-flex justify-content-center mx-3">
+                <button class="btn text-center">Coba Sekarang</button> <!-- Center tombol -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-white text-center py-3">
+        <div class="container">
+            <p class="mb-1">© 2024 Mensafe | TDSN. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+
 
     <!-- Link Bootstrap JS dan dependensinya -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
