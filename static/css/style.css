@@ -1,0 +1,42 @@
+.navbar-custom {
+    background-color: #d2ede3;
+}
+
+.navbar li a {
+    color: black;
+    font-size: larger;
+}
+
+.hero {
+    background-color: #d2ede3;
+    margin-top: 90px;
+}
+
+.hero span.satu {
+    color: #c21717;
+    font-size: 24px;
+}
+
+/* .hero span.dua {
+        color: #2a2a2a;
+        font-size: 20px;
+    } */
+
+.hero button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #007958;
+    border: 1px solid #007958;
+    color: #fff;
+    font-weight: bold;
+}
+
+.hero button:hover {
+    background-color: #1aca9b;
+    border: 1px solid #1aca9b;
+}
+
+.hero img {
+    background-size: 70%;
+    border-radius: 40%;
+}
