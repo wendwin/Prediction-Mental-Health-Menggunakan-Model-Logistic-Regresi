@@ -9,18 +9,35 @@
 
 .hero {
     background-color: #d2ede3;
-    margin-top: 90px;
+    padding-top: 150px;
 }
+
 
 .hero span.satu {
-    color: #c21717;
-    font-size: 24px;
+    color: #26653F;
+    font-weight: 700;
 }
 
-/* .hero span.dua {
-        color: #2a2a2a;
-        font-size: 20px;
-    } */
+.hero span.dua {
+    color: #212020;
+    font-weight: 400;
+    font-size: 30px;
+
+}
+
+.hero span.tiga {
+    font-weight: 700;
+}
+
+.hero span.empat {
+    color: #212020;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.hero span.lima {
+    font-weight: 700;
+}
 
 .hero button {
     padding: 10px 20px;
@@ -39,4 +56,105 @@
 .hero img {
     background-size: 70%;
     border-radius: 40%;
+}
+
+.info p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.info h1 span.satu {
+    color: #26653F;
+}
+
+.info h1 span.dua {
+    color: #007958;
+}
+
+.info h1 span.tiga {
+    color: #67D69D;
+}
+
+.info-des h2 {
+    font-size: 28px;
+}
+
+.info-des h2 span {
+    color: #007958;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.info-des .level .img-level img {
+    width: 100px;
+}
+
+.info-des .img-line {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* @media (max-width: 768px) {
+    body {
+        background-color: lightcoral;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        background-color: lightgreen;
+    }
+} */
+
+
+@media (min-width: 768px) {
+
+    .hero span.satu {
+        color: #26653F;
+        font-weight: 700;
+        font-size: 55px;
+    }
+
+    .hero span.dua {
+        color: #212020;
+        font-weight: 400;
+        font-size: 30px;
+    }
+
+    .hero span.tiga {
+        font-weight: 700;
+    }
+
+    .hero span.empat {
+        color: #212020;
+        font-size: 30px;
+        font-weight: 400;
+    }
+
+    .hero span.lima {
+        font-weight: 700;
+    }
+
+    .info h1 {
+        font-size: 45px;
+    }
+
+
+
+
+    .info-des .level .img-level img {
+        width: 150px;
+    }
+
+
 }
