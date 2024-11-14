@@ -9,7 +9,7 @@
 
 .hero {
     background-color: #d2ede3;
-    padding-top: 150px;
+    padding-top: 110px;
 }
 
 
@@ -56,6 +56,10 @@
 .hero img {
     background-size: 70%;
     border-radius: 40%;
+}
+
+.info {
+    margin-top: -100px;
 }
 
 .info p {
@@ -132,7 +136,7 @@
 }
 
 .konsultasi {
-    margin: 150px 0;
+    margin: 100px 0;
 }
 
 .konsultasi button {
@@ -159,6 +163,11 @@ footer {
     background-color: #007958;
 }
 
+
+
+.form {
+    padding-top: 110px;
+}
 
 
 
