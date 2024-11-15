@@ -31,7 +31,49 @@ def save_to_database(data, prediction):
     except Error as e:
         print("Error:", e)
     finally:
-        # Hanya menutup koneksi jika berhasil terhubung
         if connection is not None and connection.is_connected():
             cursor.close()
             connection.close()
+
+# Fungsi untuk mengambil statistik zona stres dengan persentase
+def get_statistics():
+    connection = None
+    statistics = {"Zona Tenang": 0, "Zona Stres Ringan": 0, "Zona Tanda Awal": 0}
+    total_respondents = 0 
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='berkah_abadidb',
+            user='root',
+            password='pongkowulu114117'
+        )
+        if connection.is_connected():
+            cursor = connection.cursor()
+            query = "SELECT stress_zone, COUNT(*) FROM screening_results GROUP BY stress_zone"
+            cursor.execute(query)
+            results = cursor.fetchall()
+            
+            # Mapping hasil ke dalam dictionary dan hitung total responden
+            for zone, count in results:
+                if zone == 0:
+                    statistics["Zona Tenang"] = count
+                elif zone == 1:
+                    statistics["Zona Stres Ringan"] = count
+                elif zone == 2:
+                    statistics["Zona Tanda Awal"] = count
+                total_respondents += count  
+
+            # Hitung persentase setiap zona stres
+            if total_respondents > 0:
+                statistics["Zona Tenang"] = (statistics["Zona Tenang"] / total_respondents) * 100
+                statistics["Zona Stres Ringan"] = (statistics["Zona Stres Ringan"] / total_respondents) * 100
+                statistics["Zona Tanda Awal"] = (statistics["Zona Tanda Awal"] / total_respondents) * 100
+
+    except Error as e:
+        print("Error:", e)
+    finally:
+        if connection is not None and connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return statistics
