@@ -1,4 +1,14 @@
 .navbar-custom {
+    transition: border-bottom 0.3s ease;
+}
+
+.navbar-custom.border-bottom {
+    border-bottom: 8px solid #ff0505;
+    box-shadow: 1px 1px rgba(75, 255, 150, 0.5);
+}
+
+
+.navbar-custom {
     background-color: #d2ede3;
 }
 
@@ -58,9 +68,6 @@
     border-radius: 40%;
 }
 
-.info {
-    margin-top: -100px;
-}
 
 .info p {
     font-size: 18px;
@@ -169,6 +176,127 @@ footer {
     padding-top: 110px;
 }
 
+.form h2 {
+    color: #0A6835;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.form select {
+    max-width: 400px;
+    /* padding: 0 0px; */
+    border-radius: 10px;
+    background-color: #007958;
+    border: 1px solid #007958;
+    color: #fff;
+}
+
+/* .form .hint {
+    max-width: 900px;
+} */
+
+.form .hint .circle {
+    width: 40px;
+    height: 40px;
+    background-color: #007958;
+    border-radius: 50%;
+    border: 1px solid #525252;
+}
+
+.form .circle.a {
+    background-color: #F66868;
+}
+
+.form .circle.b {
+    background-color: #FEBEBE;
+}
+
+.form .circle.c {
+    background-color: #EDEBEB;
+}
+
+.form .circle.d {
+    background-color: #FFFFFF;
+}
+
+.form .circle.e {
+    background-color: #ACF3CE;
+}
+
+.form .circle.f {
+    background-color: #67D69D;
+}
+
+
+.form .radio-btn input {
+    width: 40px;
+    height: 40px;
+    background-color: #007958;
+    border-radius: 50%;
+    border: 1px solid #525252;
+    appearance: none;
+}
+
+.form input.q0 {
+    background-color: #F66868;
+}
+
+.form input.q1 {
+    background-color: #FEBEBE;
+}
+
+.form input.q2 {
+    background-color: #EDEBEB;
+}
+
+.form input.q3 {
+    background-color: #FFFFFF;
+}
+
+.form input.q4 {
+    background-color: #ACF3CE;
+}
+
+.form input.q5 {
+    background-color: #67D69D;
+}
+
+
+.form .radio-btn input:checked {
+    background-color: #0037ff;
+    border: 2px solid #007958;
+}
+
+
+.form button.send {
+    padding: 10px 30px;
+    border-radius: 50px;
+    background-color: #007958;
+    border: 1px solid #007958;
+    color: #fff;
+    font-weight: bold;
+}
+
+.form button.send:hover {
+    color: #212020;
+    background-color: #1aca9b;
+    border: 1px solid #1aca9b;
+}
+
+/* .form input[type='number'] {
+    max-width: 400px;
+    border-radius: 10px;
+    background-color: #007958;
+    border: 1px solid #007958;
+    color: #fff;
+
+}
+
+.form input::placeholder {
+    color: #fff;
+} */
+
+
 
 
 
@@ -210,6 +338,11 @@ footer {
         color: #212020;
         font-size: 30px;
         font-weight: 400;
+    }
+
+
+    .info {
+        margin-top: -100px;
     }
 
     .hero span.lima {
