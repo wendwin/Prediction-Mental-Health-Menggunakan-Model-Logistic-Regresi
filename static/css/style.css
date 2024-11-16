@@ -1,3 +1,25 @@
+.active-speech {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #61ba99;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+}
+
+.active-speech:hover {
+    background-color: #45987a;
+    color: #1b1b1b;
+    cursor: pointer;
+}
+
+
 .navbar-custom {
     transition: border-bottom 0.3s ease;
 }
