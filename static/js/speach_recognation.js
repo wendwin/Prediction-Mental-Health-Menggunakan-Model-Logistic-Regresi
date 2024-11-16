@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Memeriksa apakah modal harus ditampilkan berdasarkan sessionStorage
   const isModalClosed = sessionStorage.getItem("modalClosed") === "true";
-  
+
   // Jika modal sudah ditutup, nonaktifkan fitur Text-to-Speech dan Speech Recognition
   if (isModalClosed) {
     stopSpeechRecognitionAndSynthesis(); // Menonaktifkan semua fitur terkait suara
@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Jika perintah adalah "aktifkan" dan modal masih aktif
         if (validCommand === "aktifkan" && isModalActive) {
           console.log("Perintah 'aktifkan' diterima, menutup modal...");
-          stopSpeechRecognitionAndSynthesis(); // Hentikan pembacaan suara sebelum menutup modal
           $("#exampleModal").modal("hide"); // Menutup modal
           isModalActive = false; // Nonaktifkan modal
           sessionStorage.setItem("modalClosed", "true"); // Menyimpan status modal ditutup
