@@ -15,14 +15,14 @@
 //   });
 // });
 
-document.addEventListener("DOMContentLoaded", function () {
-  if (!localStorage.getItem("modalShown")) {
-    setTimeout(function () {
-      $("#exampleModal").modal("show");
-      localStorage.setItem("modalShown", "true");
-    }, 1000);
-  }
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   if (!localStorage.getItem("modalShown")) {
+//     setTimeout(function () {
+//       $("#exampleModal").modal("show");
+//       localStorage.setItem("modalShown", "true");
+//     }, 1000);
+//   }
+// });
 
 document.addEventListener("scroll", function () {
   const navbar = document.querySelector(".navbar-custom");
