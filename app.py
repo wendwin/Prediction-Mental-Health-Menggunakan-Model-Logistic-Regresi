@@ -1,46 +1,95 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for
 import pickle
 import numpy as np
 from database import save_to_database, get_statistics
+import re
 
 app = Flask(__name__)
+app.secret_key = 'berkah_abadi2024'  # Pastikan Anda memiliki secret key untuk flash messages
 
 # Load model dari folder `models`
 with open('models/model_stres_level.pkl', 'rb') as file:
     model = pickle.load(file)
 
+# Fungsi untuk memvalidasi input
+def is_valid_input(data):
+    # Pastikan semua inputan adalah angka jika diperlukan
+    try:
+        # Ubah data ke tipe float dan cek jika ada data yang tidak bisa diubah
+        data = [float(item) if item != '' else None for item in data]
+    except ValueError:
+        return False
+    return True
+
+
+def sanitize_input(input_string):
+    # Jika input_string adalah None, kembalikan string kosong atau nilai default
+    if input_string is None:
+        return ''
+    return re.sub(r'<[^>]*>', '', input_string) 
+
+# Validasi format data untuk memastikan semuanya valid
+def validate_input(data):
+    for item in data:
+        if item == '' or item is None:
+            return False
+        try:
+            float(item)
+        except ValueError:
+            return False
+    return True
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        # Mengambil data dari form dan melakukan sanitasi untuk setiap item
         data = [
-            request.form.get('anxiety_level'),
-            request.form.get('self_esteem'),
-            1 if request.form.get('mental_health_history').lower() == 'ya' else 0,
-            request.form.get('depression'),
-            request.form.get('headache'),
-            request.form.get('blood_pressure'),
-            request.form.get('sleep_quality'),
-            request.form.get('breathing_problem'),
-            request.form.get('noise_level'),
-            request.form.get('living_conditions'),
-            request.form.get('safety'),
-            request.form.get('basic_needs'),
-            request.form.get('academic_performance'),
-            request.form.get('study_load'),
-            request.form.get('teacher_student_relationship'),
-            request.form.get('future_career_concerns'),
-            request.form.get('social_support'),
-            request.form.get('peer_pressure'),
-            request.form.get('extracurricular_activities'),
-            request.form.get('bullying')
+            sanitize_input(request.form.get('anxiety_level')),
+            sanitize_input(request.form.get('self_esteem')),
+            1 if sanitize_input(request.form.get('mental_health_history')).lower() == 'ya' else 0,
+            sanitize_input(request.form.get('depression')),
+            sanitize_input(request.form.get('headache')),
+            sanitize_input(request.form.get('blood_pressure')),
+            sanitize_input(request.form.get('sleep_quality')),
+            sanitize_input(request.form.get('quest8')),
+            sanitize_input(request.form.get('noise_level')),
+            sanitize_input(request.form.get('safety')),
+            sanitize_input(request.form.get('quest11')),
+            sanitize_input(request.form.get('quest12')),
+            sanitize_input(request.form.get('academic_performance')),
+            sanitize_input(request.form.get('study_load')),
+            sanitize_input(request.form.get('work_load')),
+            sanitize_input(request.form.get('relationship_with_supervisor')),
+            sanitize_input(request.form.get('quest17')),
+            sanitize_input(request.form.get('quest19')),
+            sanitize_input(request.form.get('extracurricular_activity')),
+            sanitize_input(request.form.get('quest21')),
         ]
 
-        # Konversi data menjadi array numpy dan ubah ke tipe data float
-        data = np.array(data, dtype=float).reshape(1, -1)
-        prediction = model.predict(data)
-        save_to_database(data.flatten().tolist(), prediction[0])
+        if not validate_input(data):
+            flash('Semua inputan harus diisi dengan benar. Periksa kembali inputan kamu.', 'danger')
+            return redirect(url_for('screening'))
+        
+        # Validasi inputan
+        if any(item is None or item == '' for item in data):
+            flash('Semua inputan harus diisi. Periksa kembali inputan kamu.', 'danger') 
+            return redirect(url_for('screening'))
 
-        return render_template('result.html', prediction=prediction[0])
+        # Validasi format input
+        if not is_valid_input(data):
+            flash('Input yang Anda masukkan tidak valid. Periksa kembali inputan Anda.', 'danger')
+            return redirect(url_for('screening'))
+
+        try:
+            # Konversi data menjadi array numpy dan ubah ke tipe data float
+            data = np.array(data, dtype=float).reshape(1, -1)
+            prediction = model.predict(data)
+            save_to_database(data.flatten().tolist(), prediction[0])
+            flash('Data berhasil dikirim!', 'success')  
+            return render_template('result.html', prediction=prediction[0])
+        except Exception as e:
+            flash('Terjadi kesalahan saat memproses data. Silakan coba lagi.', 'danger') 
+            return redirect(url_for('screening'))
 
     stats = get_statistics()
     return render_template('index.html', stats=stats)

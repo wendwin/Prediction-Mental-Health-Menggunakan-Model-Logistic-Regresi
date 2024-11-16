@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 14 Nov 2024 pada 10.37
+-- Waktu pembuatan: 16 Nov 2024 pada 06.27
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -29,37 +29,38 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `screening_results` (
   `id` int NOT NULL,
-  `anxiety_level` float DEFAULT NULL,
-  `self_esteem` float DEFAULT NULL,
-  `mental_health_history` tinyint(1) DEFAULT NULL,
-  `depression` float DEFAULT NULL,
-  `headache` float DEFAULT NULL,
-  `blood_pressure` float DEFAULT NULL,
-  `sleep_quality` float DEFAULT NULL,
-  `breathing_problem` float DEFAULT NULL,
-  `noise_level` float DEFAULT NULL,
-  `living_conditions` float DEFAULT NULL,
-  `safety` float DEFAULT NULL,
-  `basic_needs` float DEFAULT NULL,
-  `academic_performance` float DEFAULT NULL,
-  `study_load` float DEFAULT NULL,
-  `teacher_student_relationship` float DEFAULT NULL,
-  `future_career_concerns` float DEFAULT NULL,
-  `social_support` float DEFAULT NULL,
-  `peer_pressure` float DEFAULT NULL,
-  `extracurricular_activities` float DEFAULT NULL,
-  `bullying` float DEFAULT NULL,
-  `stress_zone` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `anxiety_level` float NOT NULL,
+  `self_esteem` float NOT NULL,
+  `mental_health_history` tinyint(1) NOT NULL,
+  `depression` float NOT NULL,
+  `headache` float NOT NULL,
+  `blood_pressure` float NOT NULL,
+  `sleep_quality` float NOT NULL,
+  `quest8` float NOT NULL,
+  `noise_level` float NOT NULL,
+  `safety` float NOT NULL,
+  `quest11` float NOT NULL,
+  `quest12` float NOT NULL,
+  `academic_performance` float NOT NULL,
+  `study_load` float NOT NULL,
+  `work_load` float NOT NULL,
+  `relationship_with_supervisor` float NOT NULL,
+  `quest17` float NOT NULL,
+  `quest19` float NOT NULL,
+  `extracurricular_activity` float NOT NULL,
+  `quest21` float NOT NULL,
+  `stress_zone` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data untuk tabel `screening_results`
 --
 
-INSERT INTO `screening_results` (`id`, `anxiety_level`, `self_esteem`, `mental_health_history`, `depression`, `headache`, `blood_pressure`, `sleep_quality`, `breathing_problem`, `noise_level`, `living_conditions`, `safety`, `basic_needs`, `academic_performance`, `study_load`, `teacher_student_relationship`, `future_career_concerns`, `social_support`, `peer_pressure`, `extracurricular_activities`, `bullying`, `stress_zone`, `created_at`) VALUES
-(1, 10, 20, 1, 10, 0, 0, 3, 1, 3, 3, 3, 3, 0, 5, 3, 5, 3, 5, 4, 3, 1, '2024-11-14 09:19:12'),
-(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '2024-11-14 10:03:55');
+INSERT INTO `screening_results` (`id`, `anxiety_level`, `self_esteem`, `mental_health_history`, `depression`, `headache`, `blood_pressure`, `sleep_quality`, `quest8`, `noise_level`, `safety`, `quest11`, `quest12`, `academic_performance`, `study_load`, `work_load`, `relationship_with_supervisor`, `quest17`, `quest19`, `extracurricular_activity`, `quest21`, `stress_zone`) VALUES
+(1, 3, 6, 1, 7, 2, 2, 3, 0, 3, 3, 2, 3, 5, 0, 0, 0, 2, 5, 0, 2, 2),
+(2, 11, 29, 1, 14, 5, 0, 5, 5, 5, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 2),
+(3, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 5, 0, 5, 0, 0, 4, 0, 5, 0, 0, 1),
+(4, 0, 30, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -79,7 +80,7 @@ ALTER TABLE `screening_results`
 -- AUTO_INCREMENT untuk tabel `screening_results`
 --
 ALTER TABLE `screening_results`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

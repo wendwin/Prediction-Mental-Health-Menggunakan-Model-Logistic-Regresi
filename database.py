@@ -20,11 +20,11 @@ def save_to_database(data, prediction):
             prediction = int(prediction) if isinstance(prediction, np.integer) else prediction
             
             # Query untuk menyimpan hasil prediksi
-            query = """INSERT INTO screening_results (anxiety_level, self_esteem, mental_health_history,
-                     depression, headache, blood_pressure, sleep_quality, breathing_problem, noise_level,
-                     living_conditions, safety, basic_needs, academic_performance, study_load,
-                     teacher_student_relationship, future_career_concerns, social_support, peer_pressure,
-                     extracurricular_activities, bullying, stress_zone)
+            query = """INSERT INTO screening_results (
+                     anxiety_level, self_esteem, mental_health_history,
+                     depression, headache, blood_pressure, sleep_quality, quest8, noise_level, safety, quest11, quest12, academic_performance,
+                     study_load, work_load, relationship_with_supervisor, quest17,
+                     quest19, extracurricular_activity, quest21, stress_zone)
                      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
             cursor.execute(query, data + [prediction])
             connection.commit()

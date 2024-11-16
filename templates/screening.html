@@ -1,34 +1,52 @@
 {% extends "base.html" %} {% block content %}
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Pesan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalMessageBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="form container mt-5">
     <h2 class="text-center mb-4">Formulir Penilaian Kesehatan Mental</h2>
-    <form action="{{ url_for('index') }}" method="POST">
+     <form action="{{ url_for('index') }}" method="POST">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="anxiety_level">1. Seberapa sering Anda merasa cemas?</label>
                     <select id="anxiety_level" name="anxiety_level" class="form-control" required>
-                        <option value="1">0</option>
+                        <option value="0">0</option>
                         <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                        <option value="1">4</option>
-                        <option value="1">5</option>
-                        <option value="1">6</option>
-                        <option value="1">7</option>
-                        <option value="1">8</option>
-                        <option value="1">9</option>
-                        <option value="1">10</option>
-                        <option value="1">11</option>
-                        <option value="1">12</option>
-                        <option value="1">13</option>
-                        <option value="1">14</option>
-                        <option value="1">15</option>
-                        <option value="1">16</option>
-                        <option value="1">17</option>
-                        <option value="1">18</option>
-                        <option value="1">19</option>
-                        <option value="1">20</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
                         <option value="21">21</option>
                     </select>
                 </div>
@@ -162,7 +180,6 @@
                     <div class="circle d"></div>
                     <p>Netral</p>
                 </div>
-
                 <div class="d-flex flex-column justify-content-center align-items-center p-2">
                     <div class="circle e"></div>
                     <p>Setuju</p>
@@ -185,25 +202,25 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="">8. Apakah Anda pernah mengalami masalah pernapasan?</label>
-                        <div class="d-flex radio-btn d-flex justify-content-around">
+                        <label for="respiratory_issue">8. Apakah Anda pernah mengalami masalah pernapasan?</label>
+                        <div class="d-flex radio-btn justify-content-around">
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest8" value="0">
+                                <input class="form-check-input q0" type="radio" id="respiratory_issue_0" name="quest8" value="0" required>
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest8" value="1">
+                                <input class="form-check-input q1" type="radio" id="respiratory_issue_1" name="quest8" value="1">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest8" value="2">
+                                <input class="form-check-input q2" type="radio" id="respiratory_issue_2" name="quest8" value="2">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest8" value="3">
+                                <input class="form-check-input q3" type="radio" id="respiratory_issue_3" name="quest8" value="3">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest8" value="4">
+                                <input class="form-check-input q4" type="radio" id="respiratory_issue_4" name="quest8" value="4">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest8" value="5">
+                                <input class="form-check-input q5" type="radio" id="respiratory_issue_5" name="quest8" value="5">
                             </div>
                         </div>
                     </div>
@@ -220,31 +237,29 @@
                             min=" 0" max="5" required />
                     </div>
 
-                    <div class="mb-0 mb-md-3">
-                        <label for="">11. Apakah Anda merasa aman di lingkungan Anda?</label>
-                        <div class="d-flex radio-btn d-flex justify-content-around">
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest11" value="0">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest11" value="1">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest11" value="2">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest11" value="3">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest11" value="4">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest11" value="5">
-                            </div>
+                <div class="mb-0 mb-md-3">
+                    <label for="safety_environment">11. Apakah Anda merasa aman di lingkungan Anda?</label>
+                    <div class="d-flex radio-btn justify-content-around">
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q0" type="radio" id="safety_environment_0" name="quest11" value="0">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q1" type="radio" id="safety_environment_1" name="quest11" value="1">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q2" type="radio" id="safety_environment_2" name="quest11" value="2">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q3" type="radio" id="safety_environment_3" name="quest11" value="3">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q4" type="radio" id="safety_environment_4" name="quest11" value="4">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q5" type="radio" id="safety_environment_5" name="quest11" value="5">
                         </div>
                     </div>
-
-
+                </div>
                 </div>
             </div>
 
@@ -254,73 +269,74 @@
                         <label for="">12. Apakah Anda memiliki akses yang cukup untuk kebutuhan dasar?</label>
                         <div class="d-flex radio-btn d-flex justify-content-around">
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest8" value="0">
+                                <input class="form-check-input q0" type="radio" id="basic_needs_access_0" name="quest12" value="0">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest8" value="1">
+                                <input class="form-check-input q1" type="radio" id="basic_needs_access_1" name="quest12" value="1">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest8" value="2">
+                                <input class="form-check-input q2" type="radio" id="basic_needs_access_2" name="quest12" value="2">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest8" value="3">
+                                <input class="form-check-input q3" type="radio" id="basic_needs_access_3" name="quest12" value="3">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest8" value="4">
+                                <input class="form-check-input q4" type="radio" id="basic_needs_access_4" name="quest12" value="4">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest8" value="5">
+                                <input class="form-check-input q5" type="radio" id="basic_needs_access_5" name="quest12" value="5">
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-5 mb-3">
-                        <label for="noise_level">13. Bagaimana Anda menilai performa akademik Anda?</label>
-                        <input type="number" id="noise_level" name="noise_level" class="form-control"
-                            placeholder="Skala 0-5" min="0" max="5" required />
-                    </div>
+                <div class="mt-5 mb-3">
+                    <label for="academic_performance">13. Bagaimana Anda menilai performa akademik Anda?</label>
+                    <input type="number" id="academic_performance" name="academic_performance" class="form-control"
+                        placeholder="Skala 0-5" min="0" max="5" required />
+                </div>
+                
+                <div class="my-3">
+                    <label for="study_load">14. Bagaimana beban studi atau pekerjaan Anda saat ini?</label>
+                    <input type="number" id="study_load" name="study_load" class="form-control" placeholder="Skala 0-5" min="0" max="5"
+                        required />
+                </div>
+                
+                <div class="my-3">
+                    <label for="work_load">15. Bagaimana beban kerja Anda saat ini?</label>
+                    <input type="number" id="work_load" name="work_load" class="form-control" placeholder="Skala 0-5" min="0" max="5"
+                        required />
+                </div>
+                
+                <div class="my-3">
+                    <label for="relationship_with_supervisor">16. Bagaimana hubungan Anda dengan pengajar atau atasan?</label>
+                    <input type="number" id="relationship_with_supervisor" name="relationship_with_supervisor" class="form-control"
+                        placeholder="Skala 0-5" min="0" max="5" required />
+                </div>
 
-                    <div class="my-3">
-                        <label for="safety">14. Bagaimana beban studi atau pekerjaan Anda saat ini?</label>
-                        <input type="number" id="safety" name="safety" class="form-control" placeholder="Skala 0-5"
-                            min=" 0" max="5" required />
-                    </div>
-
-                    <div class="my-3">
-                        <label for="safety">15. Bagaimana beban studi atau pekerjaan Anda saat ini?</label>
-                        <input type="number" id="safety" name="safety" class="form-control" placeholder="Skala 0-5"
-                            min=" 0" max="5" required />
-                    </div>
-
-                    <div class="my-3">
-                        <label for="safety">16. Bagaimana hubungan Anda dengan pengajar atau atasan?</label>
-                        <input type="number" id="safety" name="safety" class="form-control" placeholder="Skala 0-5"
-                            min=" 0" max="5" required />
-                    </div>
-
-                    <div class="mb-0 mb-md-3">
-                        <label for="">17. Apakah Anda merasa khawatir tentang karir masa depan Anda?</label>
-                        <div class="d-flex radio-btn d-flex justify-content-around">
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest11" value="0">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest11" value="1">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest11" value="2">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest11" value="3">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest11" value="4">
-                            </div>
-                            <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest11" value="5">
-                            </div>
+                <div class="mb-0 mb-md-3">
+                    <label for="">17. Apakah Anda merasa khawatir tentang karir masa depan Anda?</label>
+                    <div class="d-flex radio-btn d-flex justify-content-around">
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q0" type="radio" id="career_concern_0" name="quest17" value="0">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q1" type="radio" id="career_concern_1" name="quest17" value="1">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q2" type="radio" id="career_concern_2" name="quest17" value="2">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q3" type="radio" id="career_concern_3" name="quest17" value="3">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q4" type="radio" id="career_concern_4" name="quest17" value="4">
+                        </div>
+                        <div class="form-check d-flex flex-column align-items-center">
+                            <input class="form-check-input q5" type="radio" id="career_concern_5" name="quest17" value="5">
                         </div>
                     </div>
+                </div>
+
                 </div>
                 <div class="col-md-4 text-center text-md-end d-none d-md-block">
                     <img src="{{ url_for('static', filename='img/nice_guy_pointing_finger.png') }}" alt="" width="80%">
@@ -331,27 +347,28 @@
                 <div class="col-md-4 text-center text-md-end d-none d-md-block">
                     <img src="{{ url_for('static', filename='img/women.png') }}" alt="" width="80%">
                 </div>
+                
                 <div class="col-md-8 mx-3 mx-md-0">
                     <div class="mb-5">
-                        <label for="">18. pakah Anda memiliki dukungan sosial yang memadai?</label>
+                        <label for="">18. Apakah Anda memiliki dukungan sosial yang memadai?</label>
                         <div class="d-flex radio-btn d-flex justify-content-around">
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest8" value="0">
+                                <input class="form-check-input q0" type="radio" id="social_support_0" name="quest18" value="0">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest8" value="1">
+                                <input class="form-check-input q1" type="radio" id="social_support_1" name="quest18" value="1">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest8" value="2">
+                                <input class="form-check-input q2" type="radio" id="social_support_2" name="quest18" value="2">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest8" value="3">
+                                <input class="form-check-input q3" type="radio" id="social_support_3" name="quest18" value="3">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest8" value="4">
+                                <input class="form-check-input q4" type="radio" id="social_support_4" name="quest18" value="4">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest8" value="5">
+                                <input class="form-check-input q5" type="radio" id="social_support_5" name="quest18" value="5">
                             </div>
                         </div>
                     </div>
@@ -360,73 +377,86 @@
                         <label for="">19. Apakah Anda sering merasa mendapat tekanan dari teman sebaya?</label>
                         <div class="d-flex radio-btn d-flex justify-content-around">
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest8" value="0">
+                                <input class="form-check-input q0" type="radio" id="peer_pressure_0" name="quest19" value="0">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest8" value="1">
+                                <input class="form-check-input q1" type="radio" id="peer_pressure_1" name="quest19" value="1">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest8" value="2">
+                                <input class="form-check-input q2" type="radio" id="peer_pressure_2" name="quest19" value="2">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest8" value="3">
+                                <input class="form-check-input q3" type="radio" id="peer_pressure_3" name="quest19" value="3">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest8" value="4">
+                                <input class="form-check-input q4" type="radio" id="peer_pressure_4" name="quest19" value="4">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest8" value="5">
+                                <input class="form-check-input q5" type="radio" id="peer_pressure_5" name="quest19" value="5">
                             </div>
                         </div>
                     </div>
 
-                    <div class="my-3">
-                        <label for="noise_level">20. Seberapa aktif Anda dalam kegiatan ekstrakurikuler?</label>
-                        <input type="number" id="noise_level" name="noise_level" class="form-control"
-                            placeholder="Skala 0-5" min="0" max="5" required />
-                    </div>
+                <div class="my-3">
+                    <label for="extracurricular_activity">20. Seberapa aktif Anda dalam kegiatan ekstrakurikuler?</label>
+                    <input type="number" id="extracurricular_activity" name="extracurricular_activity" class="form-control"
+                        placeholder="Skala 0-5" min="0" max="5" required />
+                </div>
 
                     <div class="mb-3">
                         <label for="">21. Apakah Anda pernah mengalami perundungan?</label>
                         <div class="d-flex radio-btn d-flex justify-content-around">
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q0" type="radio" name="quest11" value="0">
+                                <input class="form-check-input q0" type="radio" id="bullying_0" name="quest21" value="0">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q1" type="radio" name="quest11" value="1">
+                                <input class="form-check-input q1" type="radio" id="bullying_1" name="quest21" value="1">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q2" type="radio" name="quest11" value="2">
+                                <input class="form-check-input q2" type="radio" id="bullying_2" name="quest21" value="2">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q3" type="radio" name="quest11" value="3">
+                                <input class="form-check-input q3" type="radio" id="bullying_3" name="quest21" value="3">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q4" type="radio" name="quest11" value="4">
+                                <input class="form-check-input q4" type="radio" id="bullying_4" name="quest21" value="4">
                             </div>
                             <div class="form-check d-flex flex-column align-items-center">
-                                <input class="form-check-input q5" type="radio" name="quest11" value="5">
+                                <input class="form-check-input q5" type="radio" id="bullying_5" name="quest21" value="5">
                             </div>
                         </div>
                     </div>
-                </div>
-
             </div>
         </div>
-
+    </div>
         <div class="text-center mb-5">
             <button type="submit" class="btn btn-primary my-4 send">Kirim</button>
         </div>
     </form>
-
-
-
 </div>
-
 <footer class="text-white text-center py-3">
     <div class="container">
         <p class="mb-1">© 2024 Mensafe | TDSN. All Rights Reserved.</p>
     </div>
 </footer>
+
+
+<!-- Flash Message Logic -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<script>
+    // JavaScript untuk menampilkan modal dengan pesan
+    document.addEventListener('DOMContentLoaded', function () {
+        var messageCategory = '{{ messages[0][0] }}'; 
+        var messageText = '{{ messages[0][1] }}';  
+        var modalMessageBody = document.getElementById('modalMessageBody');
+        modalMessageBody.innerHTML = messageText;
+        $('#messageModal').modal('show');
+    });
+</script>
+
+{% endif %}
+{% endwith %}
 
 {% endblock %}
