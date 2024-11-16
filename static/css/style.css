@@ -69,6 +69,28 @@
 }
 
 
+/* .modal .custom-modal-bg {
+    background: linear-gradient(to right bottom, #3BB795, #6be2c1);
+    background-color: #D2EDE3;
+    color: #ffffff;
+    box-shadow: 0px 0px 2px 2px #3BB795;
+} */
+
+/* .modal .custom-modal-bg {} */
+
+.modal .custom-modal-bg p {
+    font-size: 16px;
+}
+
+.modal .modal-footer button {
+    background-color: #0fab82;
+    border: 1px solid #0fab82;
+    color: #fff;
+    font-weight: semibold;
+}
+
+
+
 .info p {
     font-size: 18px;
     font-weight: 600;
@@ -282,6 +304,10 @@ footer {
     background-color: #1aca9b;
     border: 1px solid #1aca9b;
 }
+
+
+
+
 
 /* .form input[type='number'] {
     max-width: 400px;
