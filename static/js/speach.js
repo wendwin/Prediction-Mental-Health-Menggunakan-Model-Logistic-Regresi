@@ -128,11 +128,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.speechSynthesis.onvoiceschanged = setVoice;
 
-  // Fungsi untuk menonaktifkan fitur suara dan teks ketika modal ditutup
-  const closeModalButton = document.querySelector('[data-dismiss="modal"]');
-  closeModalButton.addEventListener("click", () => {
-    console.log("Modal ditutup, menonaktifkan fitur suara...");
-    window.speechSynthesis.cancel(); // Membatalkan suara yang sedang berjalan
-    isModalActive = false; // Menonaktifkan pengenalan suara lebih lanjut
-  });
+  
 });
