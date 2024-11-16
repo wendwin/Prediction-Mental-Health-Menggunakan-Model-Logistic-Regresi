@@ -81,16 +81,40 @@ def index():
             return redirect(url_for('screening'))
 
         try:
-            # Konversi data menjadi array numpy dan ubah ke tipe data float
+            # Konversi data menjadi array numpy dan prediksi
             data = np.array(data, dtype=float).reshape(1, -1)
-            prediction = model.predict(data)
-            save_to_database(data.flatten().tolist(), prediction[0])
-            flash('Data berhasil dikirim!', 'success')  
-            return render_template('result.html', prediction=prediction[0])
-        except Exception as e:
-            flash('Terjadi kesalahan saat memproses data. Silakan coba lagi.', 'danger') 
-            return redirect(url_for('screening'))
+            prediction = model.predict(data)[0]  # Ambil hasil prediksi
+            
+            # Simpan hasil ke database
+            save_to_database(data.flatten().tolist(), prediction)
 
+            # Flash pesan berdasarkan level stres
+            if prediction == 0:
+                flash({
+                    'level': 0,
+                    'message': 'Kamu tuh level chill banget, kayak kamu lagi santai nggak ada beban, semua terkendali, dan pikiran rasanya damai banget!',
+                    'image': 'level0.png'
+                }, 'prediction')
+            elif prediction == 1:
+                flash({
+                    'level': 1,
+                    'message': 'Nah, di level ini tuh mulai ada sedikit tekanan. Nggak terlalu berat sih, masih bisa di-handle sambil jalan, tapi udah mulai terasa ada yang ngganjel dikit.',
+                    'image': 'level1.png'
+                }, 'prediction')
+            elif prediction == 2:
+                flash({
+                    'level': 2,
+                    'message': 'Kalau udah sampai sini, kamu mulai ngerasa agak tegang dan kepikiran terus. Belum parah, tapi udah mulai butuh perhatian biar nggak makin berat.',
+                    'image': 'level2.png'
+                }, 'prediction')
+            else:
+                flash('Hasil prediksi tidak diketahui. Silakan coba lagi.', 'danger')
+
+            return redirect(url_for('screening'))
+        except Exception as e:
+            flash('Terjadi kesalahan saat memproses data. Silakan coba lagi.', 'danger')
+            return redirect(url_for('screening'))
+        
     stats = get_statistics()
     return render_template('index.html', stats=stats)
 

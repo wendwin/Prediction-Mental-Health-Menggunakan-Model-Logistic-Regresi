@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Memeriksa apakah modal harus ditampilkan berdasarkan sessionStorage
   const isModalClosed = sessionStorage.getItem("modalClosed") === "true";
-
+  
   // Jika modal sudah ditutup, nonaktifkan fitur Text-to-Speech dan Speech Recognition
   if (isModalClosed) {
     stopSpeechRecognitionAndSynthesis(); // Menonaktifkan semua fitur terkait suara

@@ -450,12 +450,12 @@
     </form>
 </div>
 
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Launch demo modal
-</button> -->
+</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content custom-modal-bg">
             <div class="modal-header">
@@ -504,6 +504,64 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content custom-modal-bg">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensafe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                {% if category == 'prediction' %}
+                <div class="level d-flex align-items-center">
+                    <div class="img-level">
+                        <img src="{{ url_for('static', filename='img/' ~ message.image) }}" alt="" width="140">
+                    </div>
+                    <div class="level-des">
+                        <p>Level Stress Anda tergolong <strong>?Level {{ message.level }}?</strong></p>
+                        <p>{{ message.message }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if category == 'danger' %}
+                <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+            </div>
+            <div class="modal-footer">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                {% if category == 'prediction' %}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="bi bi-chat-dots"></i> Konsultasi
+                </button>
+                {% if message.level in [1, 2] %}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+        if (document.querySelector('.level') || document.querySelector('.alert-danger')) {
+            modal.show();
+        }
+    });
+</script>
+
 
 {% endblock %}
