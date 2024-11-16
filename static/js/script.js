@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
       $("#exampleModal").modal("show");
       localStorage.setItem("modalShown", "true");
-    }, 1000);
+    }, 2000);
   }
 });
 
