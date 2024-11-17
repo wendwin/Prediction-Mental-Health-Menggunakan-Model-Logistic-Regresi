@@ -5,9 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   recognition.interimResults = true;
 
   let isVoiceActive = sessionStorage.getItem("voiceActive") === "true";
-  let isModalClosed = false; // Menambahkan flag untuk cek apakah modal ditutup
+  let isModalClosed = false;
 
-  // Fungsi untuk membaca teks
   const readText = (text) => {
     if (text && text.trim()) {
       const utterance = new SpeechSynthesisUtterance(text.trim());
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Fungsi untuk mengaktifkan/mematikan suara
   const toggleSound = (enable) => {
     isVoiceActive = enable;
     sessionStorage.setItem("voiceActive", enable);
@@ -37,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Fungsi untuk menghentikan SpeechRecognition dan TTS
   const stopSpeechRecognitionAndSynthesis = () => {
     if (recognition.state === "running") {
       recognition.stop();
@@ -46,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.speechSynthesis.cancel();
   };
 
-  // Fungsi untuk menavigasi ke bagian tertentu di halaman
   const navigateToSection = (sectionId) => {
     const section = document.querySelector(sectionId);
     if (section) {
@@ -54,18 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Menangani hasil dari SpeechRecognition
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         const command = event.results[i][0].transcript.toLowerCase();
         console.log("Perintah suara:", command);
 
-        // Navigasi berdasarkan perintah suara
-        if (
-          command.includes("gratis cek sekarang!") ||
-          command.includes("cek sekarang")
-        ) {
+        if (command.includes("screening") || command.includes("cek sekarang")) {
           sessionStorage.setItem("keepVoiceActive", "true");
           window.location.href = "/screening";
         } else if (command.includes("kembali") || command.includes("back")) {
@@ -77,10 +68,18 @@ document.addEventListener("DOMContentLoaded", () => {
           command.includes("konsultasi")
         ) {
           navigateToSection("#konsultasi");
-        } else if (command.includes("Lanjutkan")) {
+        } else if (
+          command.includes("lanjutkan") ||
+          command.includes("teruskan")
+        ) {
           $("#welcomeModal").modal("hide");
-          sessionStorage.setItem("modalShown", "true"); // Menyimpan status modal ditutup
-          // Jangan matikan suara setelah perintah lanjutkan
+          sessionStorage.setItem("modalShown", "true");
+        } else if (command.includes("kirim")) {
+          const form = document.querySelector("form");
+          if (form) {
+            console.log("Formulir dikirim melalui perintah suara.");
+            form.submit();
+          }
         }
       }
     }
@@ -95,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Event pada welcomeModal
   $("#welcomeModal").on("shown.bs.modal", () => {
     const modalText = document.querySelector(
       "#welcomeModal .modal-body"
@@ -106,14 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $("#welcomeModal").on("hidden.bs.modal", () => {
     console.log("Modal welcome ditutup.");
-    isModalClosed = true; // Menandakan modal telah ditutup
-    // Jangan matikan suara jika perintah lanjutkan atau teruskan telah dijalankan
+    isModalClosed = true;
     if (!sessionStorage.getItem("keepVoiceActive")) {
-      toggleSound(false); // Memastikan TTS dan SR dimatikan jika modal ditutup secara normal
+      toggleSound(false);
     }
   });
 
-  // Event pada successModal
   $("#successModal").on("shown.bs.modal", () => {
     const modalText = document.querySelector(
       "#successModal .modal-body"
@@ -125,32 +121,27 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Modal success ditutup. Suara tetap aktif.");
   });
 
-  // Menangani tombol close pada semua modal
   document.querySelectorAll('[data-dismiss="modal"]').forEach((button) => {
     button.addEventListener("click", () => {
       const modal = button.closest(".modal");
       $(modal).modal("hide");
 
       if (modal.id === "welcomeModal") {
-        // Matikan suara hanya untuk modal welcome jika tombol close atau X ditekan
         toggleSound(false);
-        isModalClosed = true; // Mark modal as closed
+        isModalClosed = true;
       }
     });
   });
 
-  // Tampilkan welcomeModal saat pertama kali halaman dimuat
   window.addEventListener("load", () => {
     if (!sessionStorage.getItem("modalShown")) {
-      // Menampilkan modal hanya sekali saat halaman pertama kali dimuat
       $("#welcomeModal").modal("show");
-      sessionStorage.setItem("modalShown", "true"); // Menyimpan status bahwa modal sudah ditampilkan
+      sessionStorage.setItem("modalShown", "true");
     } else if (isVoiceActive) {
       toggleSound(true);
     }
   });
 
-  // Pastikan fitur suara tetap aktif di halaman baru
   window.addEventListener("beforeunload", () => {
     if (isVoiceActive) {
       sessionStorage.setItem("keepVoiceActive", "true");
