@@ -450,61 +450,8 @@
     </form>
 </div>
 
-
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content custom-modal-bg">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Mensafe</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="level d-flex align-items-center">
-                    <div class="img-level">
-                        <img src="{{ url_for('static', filename='img/level0.png') }}" alt="" width="140">
-                    </div>
-                    <div class="level-des">
-                        <p>Level Stress Anda tergolong <strong> “Level 0”</strong></p>
-                        <p>Kamu tuh level chill banget, kayak
-                            kamu lagi santai
-                            nggak ada beban, semua terkendali, dan pikiran rasanya damai banget!</p>
-                    </div>
-                </div>
-                <div class="level d-flex align-items-center">
-                    <div class="img-level">
-                        <img src="{{ url_for('static', filename='img/level0.png') }}" alt="" width="140">
-                    </div>
-                    <div class="level-des">
-                        <p>Level Stress Anda tergolong <strong> “Level 1”</strong></p>
-                        <p>Nah, di level ini tuh mulai ada sedikit tekanan. Nggak terlalu berat sih, masih bisa
-                            di-handle sambil jalan, tapi udah mulai terasa ada yang ngganjel dikit</p>
-                    </div>
-                </div>
-                <div class="level d-flex align-items-center">
-                    <div class="img-level">
-                        <img src="{{ url_for('static', filename='img/level0.png') }}" alt="" width="140">
-                    </div>
-                    <div class="level-des">
-                        <p>Level Stress Anda tergolong <strong> “Level 2”</strong></p>
-                        <p>Kalau udah sampai sini, kamu mulai ngerasa agak tegang dan kepikiran terus. Belum parah,
-                            tapi udah mulai butuh perhatian biar nggak makin berat.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="bi bi-chat-dots"></i>
-                    Konsultasi</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- modal successs -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content custom-modal-bg">
             <div class="modal-header">
@@ -537,10 +484,14 @@
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% for category, message in messages %}
                 {% if category == 'prediction' %}
+
+                {% if message.level == 0 %}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                {% endif %}
+                {% if message.level in [1, 2] %}
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     <i class="bi bi-chat-dots"></i> Konsultasi
                 </button>
-                {% if message.level in [1, 2] %}
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 {% endif %}
                 {% endif %}
@@ -553,8 +504,8 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal2'), {});
         if (document.querySelector('.level') || document.querySelector('.alert-danger')) {
             modal.show();
         }
