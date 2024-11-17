@@ -457,7 +457,7 @@
 </div>
 
 <!-- modal successs -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="successModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content custom-modal-bg">
             <div class="modal-header">
@@ -510,12 +510,14 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const modal = new bootstrap.Modal(document.getElementById('exampleModal2'), {});
-        if (document.querySelector('.level') || document.querySelector('.alert-danger')) {
-            modal.show();
-          }
-        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const successModal = new bootstrap.Modal(document.getElementById("successModal"), {});
+    if (document.querySelector(".level") || document.querySelector(".alert-danger")) {
+        successModal.show();
+    }
+});
+
 </script>
 
 

@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   recognition.interimResults = true;
 
   let isVoiceActive = sessionStorage.getItem("voiceActive") === "true";
+  let isModalClosed = false; // Menambahkan flag untuk cek apakah modal ditutup
 
   // Fungsi untuk membaca teks
-  function readText(text) {
+  const readText = (text) => {
     if (text && text.trim()) {
       const utterance = new SpeechSynthesisUtterance(text.trim());
       utterance.lang = "id-ID";
@@ -15,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
       utterance.onerror = (e) => console.error("Error pada TTS:", e);
       window.speechSynthesis.speak(utterance);
     }
-  }
+  };
 
   // Fungsi untuk mengaktifkan/mematikan suara
-  function toggleSound(enable) {
+  const toggleSound = (enable) => {
     isVoiceActive = enable;
     sessionStorage.setItem("voiceActive", enable);
     if (enable) {
@@ -34,103 +35,125 @@ document.addEventListener("DOMContentLoaded", () => {
       stopSpeechRecognitionAndSynthesis();
       console.log("Fitur suara dimatikan.");
     }
-  }
+  };
 
-  // Fungsi menghentikan RS dan TTS
-  function stopSpeechRecognitionAndSynthesis() {
+  // Fungsi untuk menghentikan SpeechRecognition dan TTS
+  const stopSpeechRecognitionAndSynthesis = () => {
     if (recognition.state === "running") {
       recognition.stop();
       console.log("Speech Recognition dihentikan.");
     }
     window.speechSynthesis.cancel();
-  }
+  };
 
-  // Menangani hasil dari RS
+  // Fungsi untuk menavigasi ke bagian tertentu di halaman
+  const navigateToSection = (sectionId) => {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Menangani hasil dari SpeechRecognition
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         const command = event.results[i][0].transcript.toLowerCase();
         console.log("Perintah suara:", command);
 
-        //halaman testing models
+        // Navigasi berdasarkan perintah suara
         if (command.includes("screening") || command.includes("cek sekarang")) {
+          sessionStorage.setItem("keepVoiceActive", "true");
           window.location.href = "/screening";
-        }
-
-        if (command.includes("kembali") || command.includes("back")) {
+        } else if (command.includes("kembali") || command.includes("back")) {
           window.history.back();
-        }
-
-        // Perintah untuk "Informasi"
-        if (command.includes("informasi") || command.includes("info")) {
+        } else if (command.includes("informasi") || command.includes("info")) {
           navigateToSection("#info");
-        }
-
-        // Perintah untuk "Layanan Konsultasi"
-        if (command.includes("layanan") || command.includes("konsultasi")) {
+        } else if (
+          command.includes("layanan") ||
+          command.includes("konsultasi")
+        ) {
           navigateToSection("#konsultasi");
-        }
-
-        if (command.includes("lanjutkan") || command.includes("teruskan")) {
-          $("#exampleModal").modal("hide");
-          toggleSound(true);
-          sessionStorage.setItem("modalShown", "true");
         }
       }
     }
   };
-
-  // Fungsi untuk menavigasi ke bagian tertentu di halaman
-  function navigateToSection(sectionId) {
-    const section = document.querySelector(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }
 
   recognition.onerror = (e) =>
     console.error("Error pada Speech Recognition:", e);
 
   recognition.onend = () => {
-    console.log("Speech Recognition ended");
-    if (isVoiceActive) {
+    if (isVoiceActive && !isModalClosed) {
       toggleSound(true);
     }
   };
 
-  // Membaca teks dalam modal saat ditampilkan
-  $("#exampleModal").on("shown.bs.modal", () => {
+  // Event pada welcomeModal
+  $("#welcomeModal").on("shown.bs.modal", () => {
     const modalText = document.querySelector(
-      "#exampleModal .modal-body"
+      "#welcomeModal .modal-body"
     ).innerText;
     readText(modalText);
     toggleSound(true);
   });
 
-  // Menutup modal lewat tombol dan menonaktifkan suara
-  $("#exampleModal").on("hidden.bs.modal", () => {
-    if (!isVoiceActive) {
-      toggleSound(false);
+  $("#welcomeModal").on("hidden.bs.modal", () => {
+    console.log("Modal welcome ditutup.");
+    isModalClosed = true; // Menandakan modal telah ditutup
+    // Jangan matikan suara jika perintah lanjutkan atau teruskan telah dijalankan
+    if (!sessionStorage.getItem("keepVoiceActive")) {
+      toggleSound(false); // Memastikan TTS dan SR dimatikan jika modal ditutup secara normal
     }
   });
 
-  // Menangani penutupan modal via tombol close
+  // Event pada successModal
+  $("#successModal").on("shown.bs.modal", () => {
+    const modalText = document.querySelector(
+      "#successModal .modal-body"
+    ).innerText;
+    readText(modalText);
+  });
+
+  $("#successModal").on("hidden.bs.modal", () => {
+    console.log("Modal success ditutup. Suara tetap aktif.");
+  });
+
+  // Menangani tombol close pada semua modal
   document.querySelectorAll('[data-dismiss="modal"]').forEach((button) => {
     button.addEventListener("click", () => {
-      $("#exampleModal").modal("hide");
-      toggleSound(false);
-      sessionStorage.setItem("modalShown", "true");
+      const modal = button.closest(".modal");
+      $(modal).modal("hide");
+
+      if (modal.id === "welcomeModal") {
+        // Matikan suara hanya untuk modal welcome jika tombol close atau X ditekan
+        toggleSound(false);
+        isModalClosed = true; // Mark modal as closed
+      }
     });
   });
 
-  // Tampilkan modal hanya saat pertama kali halaman dimuat dalam sesi
+  // Tampilkan welcomeModal saat pertama kali halaman dimuat
   window.addEventListener("load", () => {
     if (!sessionStorage.getItem("modalShown")) {
-      $("#exampleModal").modal("show");
-    } else {
-      if (isVoiceActive) {
-        toggleSound(true);
-      }
+      // Menampilkan modal hanya sekali saat halaman pertama kali dimuat
+      $("#welcomeModal").modal("show");
+      sessionStorage.setItem("modalShown", "true"); // Menyimpan status bahwa modal sudah ditampilkan
+    } else if (isVoiceActive) {
+      toggleSound(true);
+    }
+  });
+
+  // Pastikan fitur suara tetap aktif di halaman baru
+  window.addEventListener("beforeunload", () => {
+    if (isVoiceActive) {
+      sessionStorage.setItem("keepVoiceActive", "true");
+    }
+  });
+
+  window.addEventListener("load", () => {
+    if (sessionStorage.getItem("keepVoiceActive") === "true") {
+      toggleSound(true);
+      sessionStorage.removeItem("keepVoiceActive");
     }
   });
 });
