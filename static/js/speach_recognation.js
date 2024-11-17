@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
           command.includes("konsultasi")
         ) {
           navigateToSection("#konsultasi");
-        } else if (command.includes("Aktifkan")) {
+        } else if (command.includes("Lanjutkan")) {
           $("#welcomeModal").modal("hide");
           sessionStorage.setItem("modalShown", "true"); // Menyimpan status modal ditutup
           // Jangan matikan suara setelah perintah lanjutkan
