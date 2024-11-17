@@ -14,6 +14,7 @@ with open('models/model_stres_level.pkl', 'rb') as file:
 # Fungsi untuk memvalidasi input
 def is_valid_input(data):
     # Pastikan semua inputan adalah angka jika diperlukan
+    
     try:
         # Ubah data ke tipe float dan cek jika ada data yang tidak bisa diubah
         data = [float(item) if item != '' else None for item in data]
@@ -65,6 +66,9 @@ def index():
             sanitize_input(request.form.get('extracurricular_activity')),
             sanitize_input(request.form.get('quest21')),
         ]
+
+        
+        print(data)
 
         if not validate_input(data):
             flash('Semua inputan harus diisi dengan benar. Periksa kembali inputan kamu.', 'danger')

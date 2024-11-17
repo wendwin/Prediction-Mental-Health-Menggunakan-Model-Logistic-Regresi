@@ -62,7 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Perintah suara:", command);
 
         // Navigasi berdasarkan perintah suara
-        if (command.includes("screening") || command.includes("cek sekarang")) {
+        if (
+          command.includes("gratis cek sekarang!") ||
+          command.includes("cek sekarang")
+        ) {
           sessionStorage.setItem("keepVoiceActive", "true");
           window.location.href = "/screening";
         } else if (command.includes("kembali") || command.includes("back")) {
@@ -74,10 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
           command.includes("konsultasi")
         ) {
           navigateToSection("#konsultasi");
-        } else if (
-          command.includes("lanjutkan") ||
-          command.includes("teruskan")
-        ) {
+        } else if (command.includes("Lanjutkan")) {
           $("#welcomeModal").modal("hide");
           sessionStorage.setItem("modalShown", "true"); // Menyimpan status modal ditutup
           // Jangan matikan suara setelah perintah lanjutkan
