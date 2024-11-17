@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const speechText =
-    "Selamat datang di Mensafe (Mental Safe), platform digital untuk mendukung kesehatan mental Anda dengan pendekatan ramah disabilitas. Jika Anda membutuhkan fitur text to speech, tolong ucapkan 'Mensafe'.";
-
   const recognition = new webkitSpeechRecognition();
   recognition.lang = "id-ID";
   recognition.continuous = true;
   recognition.interimResults = true;
 
-  let isSpeechActive = sessionStorage.getItem("isSpeechActive") === "true"; // Cek status dari sessionStorage
+  let isVoiceActive = sessionStorage.getItem("voiceActive") === "true";
 
+  // Fungsi untuk membaca teks
   function readText(text) {
     if (text && text.trim()) {
       const utterance = new SpeechSynthesisUtterance(text.trim());
@@ -19,14 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fungsi untuk mengaktifkan/mematikan suara
   function toggleSound(enable) {
+    isVoiceActive = enable;
+    sessionStorage.setItem("voiceActive", enable);
     if (enable) {
-      if (recognition.state !== "running" && !isSpeechActive) {
+      if (recognition.state !== "running") {
         try {
           recognition.start();
           console.log("Fitur suara diaktifkan.");
-          isSpeechActive = true; // Menandai TTS dan SR aktif
-          sessionStorage.setItem("isSpeechActive", "true"); // Simpan status di sessionStorage
         } catch (error) {
           console.error("Error memulai SpeechRecognition:", error);
         }
@@ -34,31 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       stopSpeechRecognitionAndSynthesis();
       console.log("Fitur suara dimatikan.");
-      isSpeechActive = false; // Menandai TTS dan SR tidak aktif
-      sessionStorage.setItem("isSpeechActive", "false"); // Simpan status di sessionStorage
     }
   }
 
+  // Fungsi menghentikan RS dan TTS
   function stopSpeechRecognitionAndSynthesis() {
     if (recognition.state === "running") {
       recognition.stop();
       console.log("Speech Recognition dihentikan.");
     }
     window.speechSynthesis.cancel();
-    console.log("TTS dihentikan.");
   }
 
+  // Menangani hasil dari RS
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       if (event.results[i].isFinal) {
         const command = event.results[i][0].transcript.toLowerCase();
         console.log("Perintah suara:", command);
 
-        if (
-          command.includes("screening") ||
-          command.includes("cek sekarang") ||
-          command.includes("mulai")
-        ) {
+        //halaman testing models
+        if (command.includes("screening") || command.includes("cek sekarang")) {
           window.location.href = "/screening";
         }
 
@@ -66,66 +61,76 @@ document.addEventListener("DOMContentLoaded", () => {
           window.history.back();
         }
 
+        // Perintah untuk "Informasi"
+        if (command.includes("informasi") || command.includes("info")) {
+          navigateToSection("#info");
+        }
+
+        // Perintah untuk "Layanan Konsultasi"
+        if (command.includes("layanan") || command.includes("konsultasi")) {
+          navigateToSection("#konsultasi");
+        }
+
         if (command.includes("lanjutkan") || command.includes("teruskan")) {
           $("#exampleModal").modal("hide");
-          toggleSound(true); // Tetap aktifkan Speech Recognition setelah modal ditutup
+          toggleSound(true); 
+          sessionStorage.setItem("modalShown", "true");
         }
       }
     }
   };
 
-  recognition.onerror = (e) => {
+  // Fungsi untuk menavigasi ke bagian tertentu di halaman
+  function navigateToSection(sectionId) {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  recognition.onerror = (e) =>
     console.error("Error pada Speech Recognition:", e);
-  };
 
   recognition.onend = () => {
     console.log("Speech Recognition ended");
-    if (isSpeechActive) {
-      toggleSound(true); // Restart Speech Recognition jika masih aktif
+    if (isVoiceActive) {
+      toggleSound(true);
     }
   };
 
-  const modalShownKey = "modalShown";
-
-  if (!localStorage.getItem(modalShownKey)) {
-    $("#exampleModal").modal("show");
-    localStorage.setItem(modalShownKey, "true");
-    toggleSound(true); // Aktifkan Speech Recognition ketika modal muncul pertama kali
-  }
-
-  $("#exampleModal").on("hidden.bs.modal", () => {
-    console.log("Modal ditutup");
-    toggleSound(false); // Hentikan Speech Recognition dan Synthesis saat modal ditutup
+  // Membaca teks dalam modal saat ditampilkan
+  $("#exampleModal").on("shown.bs.modal", () => {
+    const modalText = document.querySelector(
+      "#exampleModal .modal-body"
+    ).innerText;
+    readText(modalText);
+    toggleSound(true);
   });
 
-  document.querySelectorAll('[data-dismiss="modal"]').forEach((button) => {
-    if (button) {
-      button.addEventListener("click", () => {
-        console.log("Tombol Close atau X ditekan");
-        $("#exampleModal").modal("hide");
-        toggleSound(false); // Hentikan Speech Recognition dan Synthesis saat tombol close ditekan
-      });
+  // Menutup modal lewat tombol dan menonaktifkan suara
+  $("#exampleModal").on("hidden.bs.modal", () => {
+    if (!isVoiceActive) {
+      toggleSound(false); 
     }
   });
 
+  // Menangani penutupan modal via tombol close
+  document.querySelectorAll('[data-dismiss="modal"]').forEach((button) => {
+    button.addEventListener("click", () => {
+      $("#exampleModal").modal("hide");
+      toggleSound(false); 
+      sessionStorage.setItem("modalShown", "true"); 
+    });
+  });
+
+  // Tampilkan modal hanya saat pertama kali halaman dimuat dalam sesi
   window.addEventListener("load", () => {
-    console.log("Page loaded");
-    toggleSound(false); // Reset SR dan TTS ketika halaman dimuat
-  });
-
-  $("#exampleModal").on("shown.bs.modal", () => {
-    readText(speechText); // Membaca teks penyambutan saat modal muncul
-  });
-
-  // Detect mouse position and trigger TTS if mouse is near center of the screen
-  document.addEventListener('mousemove', (e) => {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
-
-    if (distance < 150 && !isSpeechActive) { // Trigger when mouse is near the center
-      console.log("Cursor berada di tengah layar, memulai pembacaan otomatis");
-      readText(speechText); // Auto-read text
+    if (!sessionStorage.getItem("modalShown")) {
+      $("#exampleModal").modal("show");
+    } else {
+      if (isVoiceActive) {
+        toggleSound(true); 
+      }
     }
   });
 });
