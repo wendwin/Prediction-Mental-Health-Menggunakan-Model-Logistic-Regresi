@@ -8,9 +8,9 @@ def save_to_database(data, prediction):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='berkah_abadidb',
+            database='berkah_abadi',
             user='root',
-            password='pongkowulu114117'
+            password=''
         )
         if connection.is_connected():
             cursor = connection.cursor()
@@ -43,9 +43,9 @@ def get_statistics():
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='berkah_abadidb',
+            database='berkah_abadi',
             user='root',
-            password='pongkowulu114117'
+            password=''
         )
         if connection.is_connected():
             cursor = connection.cursor()
