@@ -5,16 +5,15 @@
 //   radio.addEventListener("change", () => {
 //     // Ketika radio button dipilih, atur semua radio ke abu-abu
 //     radioButtons.forEach((rb) => {
-//       rb.style.backgroundColor = "#cccccc"; // Abu-abu untuk yang tidak dipilih
+//       rb.style.backgroundColor = "#cccccc";
 //       rb.style.border = "1px solid #aaaaaa";
 //     });
 
 //     // Atur radio yang dipilih ke biru
-//     radio.style.backgroundColor = "#0037ff"; // Biru untuk yang dipilih
+//     radio.style.backgroundColor = "#0037ff";
 //     radio.style.border = "2px solid #007958";
 //   });
 // });
-
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   if (!localStorage.getItem("modalShown")) {
@@ -24,7 +23,6 @@
 //     }, 1000);
 //   }
 // });
-
 
 document.addEventListener("scroll", function () {
   const navbar = document.querySelector(".navbar-custom");
