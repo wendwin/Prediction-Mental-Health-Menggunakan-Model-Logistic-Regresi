@@ -1,98 +1,128 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const isSoundEnabled = localStorage.getItem("soundEnabled") === "true";
-  console.log("isSoundEnabled:", isSoundEnabled); // Debugging
+  // Menginisialisasi Speech Synthesis
+  const speech = new SpeechSynthesisUtterance();
+  speech.lang = "id-ID";
+  speech.rate = 1.2;
+  speech.pitch = 1.0;
 
-  const speechText = `Selamat datang di Mensafe (Mental Safe), platform digital untuk mendukung kesehatan mental Anda dengan pendekatan ramah disabilitas. Jika Anda membutuhkan fitur text to speech, tolong ucapkan "Mensafe".`;
-
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "id-ID";
-  recognition.continuous = true;
-  recognition.interimResults = true;
-
-  function readText(text) {
-    if (text && text.trim()) {
-      const utterance = new SpeechSynthesisUtterance(text.trim());
-      utterance.lang = "id-ID";
-      utterance.onend = () => console.log("Pembacaan teks selesai.");
-      utterance.onerror = (e) => console.error("Error pada TTS:", e);
-      window.speechSynthesis.speak(utterance);
+  // Pilih suara perempuan Indonesia jika tersedia
+  function setVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(
+      (voice) => voice.lang === "id-ID" && voice.name.includes("Google Female")
+    );
+    if (voice) {
+      speech.voice = voice;
     }
   }
 
-  function toggleSound(enable) {
-    if (enable) {
-      if (recognition.state !== "running") { 
-        try {
-          recognition.start();
-          localStorage.setItem("soundEnabled", "true"); 
-          console.log("Fitur suara diaktifkan.");
-        } catch (error) {
-          console.error("Error memulai SpeechRecognition:", error);
+  // Fungsi untuk membaca teks
+  function bacaTeks(teks) {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+    speech.text = teks;
+    window.speechSynthesis.speak(speech);
+  }
+
+  setVoice();
+  let lastText = "";
+  let dropdownClicked = false;
+
+  // Event untuk membaca teks pada elemen
+  document.body.addEventListener("mousemove", (event) => {
+    const elemen = event.target.closest(
+      "h1, h2, h3, h4, h5, h6, span, li, a, label, select, option, p, button, input"
+    );
+
+    if (elemen) {
+      let teks = elemen.innerText || elemen.textContent;
+      if (elemen.tagName.toLowerCase() === "h1") {
+        bacaTeks(teks);
+      }
+
+      // Jika elemen adalah select (dropdown)
+      if (elemen.tagName.toLowerCase() === "select") {
+        if (!dropdownClicked) {
+          teks = "Tombol dropdown. Klik untuk memilih.";
+          bacaTeks(teks);
+        } else {
+          const optionsText = readDropdownOptions(elemen);
+          bacaTeks(optionsText);
         }
       }
-    } else {
-      stopSpeechRecognitionAndSynthesis();
-      localStorage.setItem("soundEnabled", "false"); 
-      console.log("Fitur suara dimatikan.");
-    }
-  }
 
-  function stopSpeechRecognitionAndSynthesis() {
-    if (recognition.state === "running") {
-      recognition.stop();
-      console.log("Speech Recognition dihentikan.");
-    }
-    window.speechSynthesis.cancel();
-  }
-
-  recognition.onresult = (event) => {
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        const command = event.results[i][0].transcript.toLowerCase();
-        console.log("Perintah suara:", command);
-
-        if (
-          command.includes("screening") ||
-          command.includes("cek sekarang") ||
-          command.includes("mulai")
-        ) {
-          window.location.href = "/screening"; 
-        }
-
-        if (command.includes("kembali") || command.includes("back")) {
-          window.history.back(); 
-        }
-
-        if (command.includes("lanjutkan")) {
-          $("#exampleModal").modal("hide");
-          toggleSound(true); 
-        }
+      // Jika elemen adalah option dalam dropdown
+      if (elemen.tagName.toLowerCase() === "option" && dropdownClicked) {
+        const dropdown = elemen.parentElement;
+        const selectedValue = dropdown.options[dropdown.selectedIndex].text;
+        bacaTeks(`Opsi yang Anda pilih adalah ${selectedValue}`);
       }
-    }
-  };
 
-  recognition.onerror = (e) => {
-    console.error("Error pada Speech Recognition:", e);
-  };
-
-  recognition.onend = () => {
-    console.log("Speech Recognition ended");
-    if (localStorage.getItem("soundEnabled") === "true") {
-      recognition.start(); 
-    }
-  };
-
-  // Jika fitur suara diaktifkan, langsung jalankan speech recognition di halaman baru
-  if (isSoundEnabled) {
-    toggleSound(true); 
-  }
-
-  window.addEventListener('load', () => {
-    console.log("Page loaded");
-    // Pastikan fitur suara tetap aktif di halaman ini
-    if (localStorage.getItem("soundEnabled") === "true") {
-      toggleSound(true); 
+      // Jika elemen adalah input, bacakan skala
+      if (
+        elemen.tagName.toLowerCase() === "input" &&
+        elemen.type === "number"
+      ) {
+        const skala =
+          elemen.getAttribute("min") + "-" + elemen.getAttribute("max");
+        bacaTeks(`Ketik di sini dengan skala ${skala}`);
+      }
+      if (teks !== lastText) {
+        lastText = teks;
+        bacaTeks(teks);
+      }
     }
   });
 
+  // Menghentikan pembacaan saat kursor keluar dari elemen
+  document.body.addEventListener("mouseout", (event) => {
+    if (
+      event.target.matches(
+        "h1, h2, h3, h4, h5, h6, span, li, a, label, select, option, p, button, input"
+      )
+    ) {
+      window.speechSynthesis.cancel();
+    }
+  });
+
+  // Menambahkan event listener pada dropdown untuk menangani klik
+  const dropdowns = document.querySelectorAll("select");
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener("click", () => {
+      dropdownClicked = true;
+    });
+  });
+
+  // Menambahkan event listener pada tombol dan link
+  const tombol = document.querySelectorAll("button");
+  tombol.forEach((btn) => {
+    btn.addEventListener("mouseover", () => {
+      let teks = "TOMBOL. GRATIS! CEK SEKARANG YUK!";
+      bacaTeks(teks);
+    });
+  });
+
+  // Menambahkan event listener untuk link "Screening" dan "Informasi"
+  const linkScreening = document.querySelector("a.nav-link.active");
+  if (linkScreening) {
+    linkScreening.addEventListener("mouseover", () => {
+      let teks = "TOMBOL. GRATIS! CEK SEKARANG YUK!";
+      bacaTeks(teks);
+    });
+  }
+
+  const linkInformasi = document.querySelector("a.nav-link:not(.active)");
+  if (linkInformasi) {
+    linkInformasi.addEventListener("mouseover", () => {
+      let teks = "TOMBOL INFORMASI";
+      bacaTeks(teks);
+    });
+  }
+
+  window.speechSynthesis.onvoiceschanged = setVoice;
+
+
 });
+
+
